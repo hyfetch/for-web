@@ -19,7 +19,7 @@ export function CreateChannelModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl("", { required: true }),
+    name: createFormControl("", { required: true, maxLength: 32}),
     type: createFormControl("Text"),
   });
 
@@ -68,6 +68,12 @@ export function CreateChannelModal(
             name="name"
             control={group.controls.name}
             label={t`Channel Name`}
+            onInput={(e) => {
+              const value = e.currentTarget.value;
+              if (value.length > 32) {
+                e.currentTarget.value = value.slice(0, 32);
+              }
+            }}
           />
 
           <Form2.Radio control={group.controls.type}>
