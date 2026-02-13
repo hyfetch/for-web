@@ -19,7 +19,7 @@ export function CreateChannelModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl("", { required: true, maxLength: 32}),
+    name: createFormControl("", { required: true, maxLength: 32 }),
     type: createFormControl("Text"),
   });
 
