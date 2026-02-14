@@ -19,14 +19,12 @@ export function CreateChannelModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl("", {required: true }),
+    name: createFormControl("", { required: true }),
     type: createFormControl("Text"),
   });
 
   async function onSubmit() {
-
     try {
-
       const channel = await props.server.createChannel({
         type: group.controls.type.value as "Text" | "Voice",
         name: group.controls.name.value,
