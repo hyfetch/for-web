@@ -19,12 +19,14 @@ export function CreateChannelModal(
   const { showError } = useModals();
 
   const group = createFormGroup({
-    name: createFormControl("", { required: true }),
+    name: createFormControl("", {required: true }),
     type: createFormControl("Text"),
   });
 
   async function onSubmit() {
+
     try {
+
       const channel = await props.server.createChannel({
         type: group.controls.type.value as "Text" | "Voice",
         name: group.controls.name.value,
@@ -68,14 +70,18 @@ export function CreateChannelModal(
             name="name"
             control={group.controls.name}
             label={t`Channel Name`}
-            onInput={(e) => {
+            on:keydown={(e) => {
               const value = e.currentTarget.value;
-              if (value.length > 32) {
-                e.currentTarget.value = value.slice(0, 32);
+              if (
+                value!.length >= 32 &&
+                e.key != "Backspace" &&
+                e.key != "Delete"
+              ) {
+                e?.preventDefault();
+                e.currentTarget.value = value.slice(0, 33);
               }
             }}
           />
-
           <Form2.Radio control={group.controls.type}>
             <Radio2.Option value="Text">
               <Trans>Text Channel</Trans>

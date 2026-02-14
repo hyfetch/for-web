@@ -95,10 +95,15 @@ export default function ChannelOverview(props: ChannelSettingsProps) {
             name="name"
             control={editGroup.controls.name}
             label={t`Channel Name`}
-            onInput={(e) => {
+            on:keydown={(e) => {
               const value = e.currentTarget.value;
-              if (value.length > 32) {
-                e.currentTarget.value = value.slice(0, 32);
+              if (
+                value!.length >= 32 &&
+                e.key != "Backspace" &&
+                e.key != "Delete"
+              ) {
+                e?.preventDefault();
+                e.currentTarget.value = value.slice(0, 33);
               }
             }}
           />
